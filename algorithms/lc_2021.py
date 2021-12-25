@@ -67,30 +67,19 @@ class Examples:
         '''
         counter = 0
         last_char = ''
+        numeral_lookup = {'I': 1, 'V': 5, 'X': 10,
+                          'L': 50, 'C': 100,
+                          'D': 500, 'M': 1000}
+        reversal_lookup = {'I': ['V', 'X'],
+                           'X': ['L', 'C'],
+                           'C': ['D', 'M'],
+                           'V': [], 'L': [], 'D': [], 'M': []}
         for p in reversed(s):
-            if p == 'I':
-                if last_char == 'V' or last_char == 'X':
-                    counter -= 1
-                else:
-                    counter += 1
-            elif p == 'V':
-                counter += 5
-            elif p == 'X':
-                if last_char == 'L' or last_char == 'C':
-                    counter -= 10
-                else:
-                    counter += 10
-            elif p == 'L':
-                counter += 50
-            elif p == 'C':
-                if last_char == 'D' or last_char == 'M':
-                    counter -= 100
-                else:
-                    counter += 100
-            elif p == 'D':
-                counter += 500
-            elif p == 'M':
-                counter += 1000
+            if last_char in reversal_lookup[p]:
+                counter -= numeral_lookup[p]
+            else:
+                counter += numeral_lookup[p]
+            print(f'{p}: {counter}')
             last_char = p
         return counter
 

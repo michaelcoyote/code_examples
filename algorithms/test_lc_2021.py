@@ -19,7 +19,8 @@ class TestExamples(object):
 
     def test_roman_to_int(self):
         examples1 = lc_2021.Examples()
-        test_input = ['III', 'LVIII', 'MCMXCIV']
-        test_results = [3, 58, 1994]
+
+        test_input = ['III', 'LVIII', 'MCMXCIV', 'DCXXI']
+        test_results = [3, 58, 1994, 621]
         result = [examples1.roman_to_int(s=roman) for roman in test_input]
         assert(result == test_results)
