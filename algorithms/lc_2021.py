@@ -26,12 +26,13 @@ class Examples:
             # divide the original number by 10
             working_x = working_x // 10
         return working_x == rev_num or working_x == (rev_num // 10)
-        #
-        # super quick and dirty solution using string conversion
-        # for (f,r) in zip(str(x), reversed(str(x))):
-        #     if f != r:
-        #         return False
-        # return True
+
+    def is_palindrome_str(self, x: int) -> bool:
+        #  super quick and dirty solution using string conversion
+        for (f, r) in zip(str(x), reversed(str(x))):
+            if f != r:
+                return False
+        return True
 
     def roman_to_int(self, s: str) -> int:
         '''
@@ -64,7 +65,34 @@ class Examples:
 
         Given a roman numeral, convert it to an integer.
         '''
-        pass
+        counter = 0
+        last_char = ''
+        for p in reversed(s):
+            if p == 'I':
+                if last_char == 'V' or last_char == 'X':
+                    counter -= 1
+                else:
+                    counter += 1
+            elif p == 'V':
+                counter += 5
+            elif p == 'X':
+                if last_char == 'L' or last_char == 'C':
+                    counter -= 10
+                else:
+                    counter += 10
+            elif p == 'L':
+                counter += 50
+            elif p == 'C':
+                if last_char == 'D' or last_char == 'M':
+                    counter -= 100
+                else:
+                    counter += 100
+            elif p == 'D':
+                counter += 500
+            elif p == 'M':
+                counter += 1000
+            last_char = p
+        return counter
 
 
 def main():
