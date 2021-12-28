@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """This is an example."""
 
+from __future__ import annotations
+
 
 class Examples:
     def is_palindrome(self, x: int) -> bool:
@@ -82,6 +84,27 @@ class Examples:
             print(f'{p}: {counter}')
             last_char = p
         return counter
+
+    def longest_common_prefix(self, strs: list[str]) -> str:
+        ''' https://leetcode.com/problems/longest-common-prefix
+
+        Within a group of strings find the longest common prefix.
+
+        I've done a "horizontal" soluton here but there are other ways to
+        implement it such as vertical and binary search.
+        '''
+        answer = ''
+        for idx in range(len(min(strs, key=len))):
+            letter_carrier = strs[0][idx]
+            # print(f'idx: {idx} - {letter_carrier}')
+            # compare the characters of each word in order and if they all
+            # are the same, add the character to the answer.
+            if all(word[idx] == letter_carrier for word in strs):
+                answer += letter_carrier
+            else:
+                # if the numbers fail to compare then then we've found the lcp
+                break
+        return answer
 
 
 def main():

@@ -1,4 +1,5 @@
 # import pytest
+from __future__ import annotations
 import lc_2021
 
 
@@ -19,8 +20,17 @@ class TestExamples(object):
 
     def test_roman_to_int(self):
         examples1 = lc_2021.Examples()
-
         test_input = ['III', 'LVIII', 'MCMXCIV', 'DCXXI']
         test_results = [3, 58, 1994, 621]
         result = [examples1.roman_to_int(s=roman) for roman in test_input]
+        assert(result == test_results)
+
+    def test_longest_common_prefix(self):
+        examples1 = lc_2021.Examples()
+        test_input = [["flower", "flow", "flight"],
+                      ["dog", "racecar", "car"],
+                      ["cir", "car"]]
+        test_results = ['fl', '', 'c']
+        result = [examples1.longest_common_prefix(strs=strs) for strs
+                  in test_input]
         assert(result == test_results)
