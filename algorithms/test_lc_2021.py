@@ -34,3 +34,10 @@ class TestExamples(object):
         result = [examples1.longest_common_prefix(strs=strs) for strs
                   in test_input]
         assert(result == test_results)
+
+    def test_valid_brackets(self):
+        examples1 = lc_2021.Examples()
+        test_input = ["()", "()[]{}", "(]", "([)]", "{[]}", ']']
+        test_results = [True, True, False, False, True, False]
+        result = [examples1.valid_brackets(s) for s in test_input]
+        assert(result == test_results)

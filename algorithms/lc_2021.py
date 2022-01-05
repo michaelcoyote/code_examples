@@ -106,6 +106,41 @@ class Examples:
                 break
         return answer
 
+    def valid_brackets(self, s: str) -> bool:
+        '''
+        Given a string s containing just the characters
+        '(', ')', '{', '}', '[' and ']', determine if the
+        input string is valid.
+
+        An input string is valid if:
+
+            Open brackets must be closed by the same type of brackets.
+            Open brackets must be closed in the correct order.
+        '''
+        stack = []
+        # we could do this with a map too.
+        opnb = ['(', '[', '{']
+        clsb = [')', ']', '}']
+        for char in s:
+            if char in opnb:  # is it an open bracket? store in the stack
+                stack.append(char)
+            elif char in clsb:  # closed bracket?
+                oppochar = opnb[clsb.index(char)]  # find opposite bracket
+                if len(stack) == 0:
+                    # if the stack is empty w/ a closed bracket then
+                    # the brackets are out of order.  Short circuit here.
+                    return False
+                elif stack[len(stack) - 1] == oppochar:
+                    # if the last char added was the opposite then pop it off
+                    stack.pop()
+                else:
+                    stack.append(char)
+                    break
+        if len(stack) == 0:
+            return True
+        else:
+            return False
+
 
 def main():
     pass
