@@ -1,0 +1,5 @@
+services:
+  flask-api:
+    build:
+      context: .
+      dockerfile: flask_api/Dockerfile
