@@ -1,6 +1,7 @@
-
-
 flake8==3.7.7
-Jinja2==2.11.3
+Jinja2==3.1.1
 pytest==4.6.2
-pika
+flask==2.1.1
+flask-restful==0.3.9
+pika==1.1.0
+python-dotenv
