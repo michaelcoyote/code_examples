@@ -1,16 +1,27 @@
-from flask import Flask
-from flask_restful import Resource, Api
+from flask import Flask, json
+from werkzeug.exceptions import HTTPException
+from owner import owner
+from member import member
 
 app = Flask(__name__)
-api = Api(app)
+
+app.register_blueprint(owner)
+app.register_blueprint(member)
 
 
-class AppOwner(Resource):
-    def get(self):
-        return {'whoisit': 'michael'}
+# APIs should return JSON error messages
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    """Return JSON instead of HTML for HTTP errors."""
+    response = e.get_response()
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
 
-
-api.add_resource(AppOwner, '/')
 
 if __name__ == '__main__':
     app.run(debug=True, port=3939)
