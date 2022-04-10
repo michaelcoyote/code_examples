@@ -6,3 +6,5 @@
 .DS_Store
 .mypy_cache/
 venv/
+.pytest_cache/
+.vscode/
