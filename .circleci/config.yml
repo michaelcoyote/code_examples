@@ -4,22 +4,26 @@ jobs:
   build:  # required for runs that don't use workflows
     working_directory: ~/circleci-python-examples
     docker:
-      - image: circleci/python:3.7.3
+      - image: cimg/python:3.7.3
     steps:
       - checkout
       - run:
-          name: Set up Python environment
+          name: Set up test environment
           command: |
               mkdir test-results
               sudo pip install pipenv
               pipenv install
               curl -H 'Cache-Control: no-cache'  https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash
+      - run:
+          name: Install Python prerequsites
+          command: |
+              pip install -r py/requirements.txt
       - save_cache:  # cache Python deps using Pipfile checksum as the cache-key
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
+            - "/usr/local/lib/python3.7/site-packages"
       - run:
           name: Lint check
           command: |
