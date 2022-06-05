@@ -473,3 +473,169 @@ Array.prototype.myFilter = function(callback) {
 const new_s = s.myFilter(function(item) {
   return item % 2 === 1;
 });
+
+// Reduce
+//
+function getRating(watchList) {
+  // Only change code below this line
+  let filteredWL = watchList.filter(d => d.Director == "Christopher Nolan")
+  let averageRating = filteredWL.reduce((sum, wl) =>  (wl.imdbRating * 1) + sum, 0)/ filteredWL.length;
+  // Only change code above this line
+  return averageRating;
+}
+console.log(getRating(watchList));
+
+// squarelist
+const squareList = arr => {
+  // Only change code below this line
+  let foo =  arr.filter(i => i >= 0).filter(j => Number.isInteger(j))
+  .map(x => x * x);
+  console.log(`${arr}: ${foo}`)
+  return foo
+  // Only change code above this line
+};
+const squaredIntegers = squareList([-3, 4.8, 5, 3, -3.2]);
+console.log(squaredIntegers);
+//
+// Sort
+// This one was odd because a plain sort() worked too but
+// I went through the excercise anyway.
+function alphabeticalOrder(arr) {
+  // Only change code below this line
+
+  return arr.sort(function(a, b) {
+    return a === b ? 0 : a > b ? 1: -1;
+  })
+  // Only change code above this line
+}
+
+console.log(alphabeticalOrder(["a", "d", "c", "a", "z", "g"]));
+// Non mutating sort
+// to force an array copy use the concat() builtin
+// function to force a new array to be created and
+// assigned
+const globalArray = [5, 6, 3, 2, 9];
+
+function nonMutatingSort(arr) {
+  // Only change code below this line
+  let res = arr.concat([]);
+  return res.sort(function(a, b) {
+    return a === b ? 0 : a > b ? 1: -1
+  })
+  // Only change code above this line
+}
+nonMutatingSort(globalArray);
+// Split function with very minimal regex..
+function splitify(str) {
+  // Only change code below this line
+  let res;
+  res = str.split(/ |,|-|\./);
+  return res;
+  // Only change code above this line
+}
+
+console.log(splitify("Hello World,I-am code"))
+
+//
+//
+//join and split builtins
+//
+function sentensify(str) {
+  // Only change code below this line
+  return str.split(/,|-|\./).join(' ')
+
+
+  // Only change code above this line
+}
+
+sentensify("May-the-force-be-with-you");
+
+//
+// urlSlug
+//
+// Only change code below this line
+function urlSlug(title) {
+return title.trim().toLowerCase().split(/\s+/).join('-')
+
+}
+// Only change code above this line
+console.log(urlSlug("A Mind Needs Books Like A Sword Needs A Whetstone"));
+//
+//
+// check positive
+// uses .every()
+//
+function checkPositive(arr) {
+  // Only change code below this line
+  return arr.every(function(myIsPositive) {
+    return myIsPositive > 0;
+  })
+  // Only change code above this line
+}
+
+console.log(checkPositive([1, 2, 3, -4, 5]));
+//
+//Check positive
+//uses .some()
+//
+
+function checkPositive(arr) {
+  // Only change code below this line
+  return arr.some(function(checkP) {
+    return checkP > 0
+  })
+  // Only change code above this line
+}
+
+console.log(checkPositive([1, 2, 3, -4, 5]));
+
+//
+// Currying
+//
+function add(x) {
+  // Only change code below this line
+  return function(y) {
+    return function(z) {
+      return x + y + z;
+      }
+    }
+  // Only change code above this line
+}
+console.log(add(10)(20)(30));
+
+//
+//
+// sumall
+//
+function sumAll(arr) {
+  let working = arr.concat([])
+  working = working.sort(function(a,b) {return a - b})
+  let res = Number(0)
+  for (let j = working[0]; j <= working[1]; j++) {
+    res += j
+  }
+  console.log(`${res}: ${working}`)
+  return res
+  // return arr.reduce((sum, x) => x + sum);
+}
+console.log(sumAll([1, 4]));
+//
+// Diff two arrays
+//
+// I'm not sure this is the solution they're looking for but it's funny
+// to filter 1 against 2 and 2 against 1 and concat the results
+// so I'm going with it.
+//
+// Another way might be to create a dictonary/kv store and then store the count
+// of every word as the value then filter that way but it sounds wasteful.
+//
+// Another way would be to store all the numbers in an array then filter 1 and
+// 2 against it and adding the missing items from 1 and 2 to the results.
+//
+function diffArray(arr1, arr2) {
+  const newArr = arr2.filter(i => !arr1.includes(i))
+                     .concat(arr1.filter( i => !arr2.includes(i)))
+  return newArr;
+}
+console.log(diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]));
+
