@@ -1,0 +1,26 @@
+# tls config
+
+[server]
+# Note that the addr must match the 
+# CA and / or SAN of the cert.
+# In this case localhost but can be
+# any resolving name.
+addr = "localhost"
+port = 42001
+timeout = 30
+debug = false
+
+[client]
+addr = "127.0.0.1"
+port = 42002
+timeout = 10
+debug = false
+
+[tls]
+# on a self-signed cert we trick libssl
+# by using the certfile so that the library
+# has already seen the cert and accepts it
+# 
+cafile = "./localhost.crt"
+keyfile = "./localhost.key"
+certfile = "./localhost.crt"
